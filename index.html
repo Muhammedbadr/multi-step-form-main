@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+    <title>Frontend Mentor | Multi-step form</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        font-family: "Ubuntu", sans-serif;
+        background: linear-gradient(to right, #ece9e6, #ffffff);
+      }
+      .step-content {
+        display: none;
+      }
+      .step-content.active {
+        display: block;
+        animation: fadeIn 0.5s ease-in-out;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .step-active {
+        background-color: #483eff;
+        border: 2px solid white;
+      }
+      .step-inactive {
+        background-color: #c2e2fe;
+        color: #000000;
+        border: none;
+        transition: background-color 0.2s, border 0.2s;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-alabaster text-cool-gray flex items-center justify-center h-screen"
+  >
+    <!-- Adjusted height of this div -->
+    <div
+      class="w-full max-w-4xl h-[90vh] bg-white shadow-lg rounded-lg overflow-hidden"
+    >
+      <div class="flex h-full" data-multi-step>
+        <!-- Sidebar -->
+        <div
+          style="background-image: url(/assets/images/bg-sidebar-desktop.svg)"
+          class="w-1/3 bg-cover bg-gradient-to-b from-blue-500 to-blue-700 text-white p-6 py-12"
+        >
+          <ul class="space-y-6">
+            <!-- li 1 -->
+            <li class="flex items-center space-x-4">
+              <div
+                data-step-li="1"
+                class="flex items-center justify-center w-10 h-10 rounded-full step-inactive"
+                id="step-link-1"
+              >
+                1
+              </div>
+              <div>
+                <div class="text-sm text-[#97b4c7]">STEP 1</div>
+                <div class="text-lg font-bold text-white">YOUR INFO</div>
+              </div>
+            </li>
+            <!-- li 2 -->
+            <li class="flex items-center space-x-4">
+              <div
+                class="flex items-center justify-center w-10 h-10 rounded-full step-active"
+                id="step-link-2"
+                data-step-li="2"
+              >
+                2
+              </div>
+              <div>
+                <div class="text-sm text-[#97b4c7]">STEP 2</div>
+                <div class="text-lg font-bold text-white">SELECT PLAN</div>
+              </div>
+            </li>
+            <!-- li 3 -->
+            <li class="flex items-center space-x-4">
+              <div
+                class="flex items-center justify-center w-10 h-10 rounded-full step-active"
+                id="step-link-3"
+                data-step-li="3"
+              >
+                3
+              </div>
+              <div>
+                <div class="text-sm text-[#97b4c7]">STEP 3</div>
+                <div class="text-lg font-bold text-white">ADD-ONS</div>
+              </div>
+            </li>
+            <!-- li 4 -->
+            <li class="flex items-center space-x-4">
+              <div
+                class="flex items-center justify-center w-10 h-10 rounded-full step-active"
+                id="step-link-4"
+                data-step-li="4"
+              >
+                4
+              </div>
+              <div>
+                <div class="text-sm text-[#97b4c7]">STEP 4</div>
+                <div class="text-lg font-bold text-white">SUMMARY</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="w-2/3 pl-16 p-8 overflow-y-auto">
+          <!-- Step 1 -->
+          <div data-step="1" id="step-1" class="step-content active ">
+            <h2 class="text-3xl font-bold mb-2 text-[#011f4f]">
+              Personal Info
+            </h2>
+            <p class="mb-6 text-[#afb0b6]">
+              Please provide your name, email address, and phone number.
+            </p>
+            <form class="space-y-4" id="personal-info-form">
+              <div>
+                <label for="name" class="block text-[#3e4c62] mb-1">
+                  <div class="flex justify-between">
+                    <p class="text-base font-medium">Name</p>
+                    <div
+                      id="name-error"
+                      class="text-red-500 text-sm font-semibold"
+                    ></div>
+                  </div>
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="e.g. Stephen King"
+                  class="border-2 border-[#bababf] rounded-md p-2 px-4 w-full focus:border-[#544f97] focus:outline-none box-border"
+                  required
+                />
+              </div>
+              <div>
+                <label for="email" class="block text-[#3e4c62] mb-1">
+                  <div class="flex justify-between">
+                    <p class="text-base font-medium">Email</p>
+                    <div
+                      id="email-error"
+                      class="text-red-500 text-sm font-semibold"
+                    ></div>
+                  </div>
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="e.g. stephenking@lorem.com"
+                  class="border-2 border-[#bababf] rounded-md p-2 px-4 w-full focus:border-[#544f97] focus:outline-none box-border"
+                  required
+                />
+              </div>
+              <div>
+                <label
+                  for="phone"
+                  class="block text-[#3e4c62] font-semibold mb-1"
+                >
+                  <div class="flex justify-between">
+                    <p class="text-base font-medium">Phone Number</p>
+                    <div
+                      id="phone-error"
+                      class="text-red-500 text-sm font-semibold"
+                    ></div>
+                  </div>
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  class="border-2 border-[#bababf] rounded-md p-2 px-4 w-full focus:border-[#544f97] focus:outline-none box-border"
+                  placeholder="e.g. +1 234 567 890"
+                  required
+                />
+              </div>
+
+              <div class="flex justify-end pt-24">
+                <button
+                  id="button"
+                  type="button"
+                  class="bg-[#144b8d] hover:bg-[#054aa4] text-white rounded-md py-2 px-4"
+                  data-next
+                >
+                  Next Step
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Step 2 -->
+          <div data-step="2" id="step-2" class="step-content">
+            <h2 class="text-3xl font-bold mb-2 text-[#011f4f]">
+              Select your plan
+            </h2>
+            <p class="mb-6 text-[#afb0b6]">
+              You have the option of monthly or yearly billing.
+            </p>
+            <!-- monthes box  -->
+            <div
+              class="boxs-monthes grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+            >
+              <div
+                class="boxs-chose bg-blue-50 border-[#19355b] relative w-38 h-44 p-4 border rounded-lg cursor-pointer grid gap-12"
+              >
+                <div>
+                  <img src="/assets/images/icon-arcade.svg" alt="Arcade Icon" />
+                </div>
+                <div>
+                  <h3 class="nameBox text-lg text-[#19355b] font-semibold">
+                    Arcade
+                  </h3>
+                  <p class="princBox text-[#9f9ea2]">$9/mo</p>
+                </div>
+                <input
+                  type="radio"
+                  name="plan"
+                  value="Arcade"
+                  class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                  checked
+                />
+              </div>
+              <div
+                class="boxs-chose bg-light-blue border border-[#bababf] relative w-38 h-44 p-4 rounded-lg cursor-pointer grid gap-12"
+              >
+                <div>
+                  <img
+                    src="/assets/images/icon-advanced.svg"
+                    alt="Advanced Icon"
+                  />
+                </div>
+                <div>
+                  <h3 class="nameBox text-lg text-[#19355b] font-semibold">
+                    Advanced
+                  </h3>
+                  <p class="princBox text-[#9f9ea2]">$12/mo</p>
+                </div>
+                <input
+                  type="radio"
+                  name="plan"
+                  value="Advanced"
+                  class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                />
+              </div>
+              <div
+                class="boxs-chose bg-light-blue border border-[#bababf] relative w-38 h-44 p-4 rounded-lg cursor-pointer grid gap-12"
+              >
+                <div>
+                  <img src="/assets/images/icon-pro.svg" alt="Pro Icon" />
+                </div>
+                <div>
+                  <h3 class="nameBox text-lg text-[#19355b] font-semibold">
+                    Pro
+                  </h3>
+                  <p class="princBox text-[#9f9ea2]">$15/mo</p>
+                </div>
+                <input
+                  type="radio"
+                  name="plan"
+                  value="Pro"
+                  class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                />
+              </div>
+            </div>
+
+            <!-- years box -->
+            <div
+              class="boxs-years grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 hidden"
+            >
+              <div
+                class="boxs-chose bg-blue-50 border-[#19355b] relative w-38 h-44 p-4 border rounded-lg cursor-pointer grid gap-8"
+              >
+                <div>
+                  <img src="/assets/images/icon-arcade.svg" alt="Arcade Icon" />
+                </div>
+                <div>
+                  <h3 class="nameBox text-lg text-[#19355b] font-semibold">
+                    Arcade
+                  </h3>
+                  <p class="princBox text-[#9f9ea2]">$90/yr</p>
+                  <p class="text-[#626466] text-xs">2 months free</p>
+                </div>
+                <input
+                  type="radio"
+                  name="plan"
+                  value="Arcade"
+                  class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                  checked
+                />
+              </div>
+              <div
+                class="boxs-chose bg-light-blue border border-[#bababf] relative w-38 h-44 p-4 rounded-lg cursor-pointer grid gap-8"
+              >
+                <div>
+                  <img
+                    src="/assets/images/icon-advanced.svg"
+                    alt="Advanced Icon"
+                  />
+                </div>
+                <div>
+                  <h3 class="nameBox text-lg text-[#19355b] font-semibold">
+                    Advanced
+                  </h3>
+                  <p class="princBox text-[#9f9ea2]">$120/yr</p>
+                  <p class="text-[#626466] text-xs">2 months free</p>
+                </div>
+                <input
+                  type="radio"
+                  name="plan"
+                  value="Advanced"
+                  class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                />
+              </div>
+              <div
+                class="boxs-chose bg-light-blue border border-[#bababf] relative w-38 h-44 p-4 rounded-lg cursor-pointer grid gap-8"
+              >
+                <div>
+                  <img src="/assets/images/icon-pro.svg" alt="Pro Icon" />
+                </div>
+                <div>
+                  <h3 class="nameBox text-lg text-[#19355b] font-semibold">
+                    Pro
+                  </h3>
+                  <p class="princBox text-[#9f9ea2]">$150/yr</p>
+                  <p class="text-[#626466] text-xs">2 months free</p>
+                </div>
+                <input
+                  type="radio"
+                  name="plan"
+                  value="Pro"
+                  class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                />
+              </div>
+            </div>
+
+            <div
+              class="flex justify-center items-center mt-6 space-x-4 bg-[#f8f9fe] py-3"
+            >
+              <!-- Text Label -->
+              <span id="" class="monthText text-gray-500">Monthly</span>
+              <!-- Switch Component -->
+              <label class="relative flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  class="sr-only peer"
+                  id="billing-toggle"
+                  onchange="handleToggle(this)"
+                />
+                <div
+                  class="w-12 h-6 bg-gray-300 rounded-full peer-checked:bg-[#02295b] peer-checked:justify-end flex items-center p-1 transition-colors duration-300"
+                >
+                  <!-- Slider Knob -->
+                  <span
+                    class="block w-4 h-4 bg-white rounded-full transition-transform duration-300"
+                  ></span>
+                </div>
+              </label>
+              <!-- Text Label -->
+              <span id="" class="yearText text-gray-500">Yearly</span>
+            </div>
+            <!--  -->
+
+            <div class="flex justify-between pt-24">
+              <button
+                type="button"
+                data-before
+                class="text-gray-400 rounded-md py-2 hover:text-gray-700 hover:font-medium transition ease-in-out delay-50 px-4 custom-go-back-button"
+              >
+                Go Back
+              </button>
+              <button
+                id="button"
+                type="button"
+                data-next
+                class="bg-[#144b8d] checkedBox hover:bg-[#054aa4] text-white rounded-md py-2 px-4 custom-next-step-button"
+              >
+                Next Step
+              </button>
+            </div>
+          </div>
+          
+          <!-- Step 3 -->
+          <div data-step="3" id="step-3" class="step-content  ">
+            <h2 class="text-3xl font-bold mb-2 text-[#011f4f]">Pick add-ons</h2>
+            <p class="mb-6 text-[#afb0b6]">
+              Add-ons help enhance your gaming experience.
+            </p>
+
+            <!-- Monthly pricing -->
+            <div class="montheprice space-y-4 mb-6">
+              <div
+                class="box_add-ons flex items-center justify-between border-2 p-4 rounded-md border-[#544f97] bg-blue-50"
+              >
+                <div class="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="online-service-monthly"
+                    name="add-on"
+                    value="Online service"
+                    class="mr-4 w-5 h-5 rounded-xl cursor-pointer"
+                    checked
+                  />
+                  <label
+                    for="online-service-monthly"
+                    class="flex-grow cursor-pointer"
+                  >
+                    <div>
+                      <p class="nameAdd_ons font-bold text-[#011f4f]">Online service</p>
+                      <p class="text-[#afb0b6]">Access to multiplayer games</p>
+                    </div>
+                  </label>
+                </div>
+                <div class="priceAdd_ons text-[#736eb4] text-base font-medium">+$1/mo</div>
+              </div>
+
+              <div
+                class="box_add-ons flex items-center justify-between border-2 p-4 rounded-md"
+              >
+                <div class="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="larger-storage-monthly"
+                    name="add-on"
+                    value="Larger storage"
+                    class="mr-4 w-5 h-5 rounded-xl cursor-pointer"
+                  />
+                  <label
+                    for="larger-storage-monthly"
+                    class="flex-grow cursor-pointer"
+                  >
+                    <div>
+                      <p class="nameAdd_ons font-bold text-[#011f4f]">Larger storage</p>
+                      <p class="text-[#afb0b6]">Extra 1TB of cloud save</p>
+                    </div>
+                  </label>
+                </div>
+                <div class="priceAdd_ons text-[#736eb4] text-base font-medium">+$2/mo</div>
+              </div>
+
+              <div
+                class="box_add-ons flex items-center justify-between border-2 p-4 rounded-md"
+              >
+                <div class="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="customizable-profile-monthly"
+                    name="add-on"
+                    value="Customizable profile"
+                    class="mr-4 w-5 h-5 rounded-xl cursor-pointer"
+                  />
+                  <label
+                    for="customizable-profile-monthly"
+                    class="flex-grow cursor-pointer"
+                  >
+                    <div>
+                      <p class="nameAdd_ons font-bold text-[#011f4f]">Customizable profile
+                      </p>
+                      <p class="text-[#afb0b6]">Custom theme on your profile</p>
+                    </div>
+                  </label>
+                </div>
+                <div class="priceAdd_ons text-[#736eb4] text-base font-medium">+$2/mo</div>
+              </div>
+            </div>
+
+            <!-- Yearly pricing -->
+            <div class="yearsprice space-y-4 mb-6 hidden">
+              <div
+                class="box_add-ons flex items-center justify-between border-2 p-4 rounded-md border-[#544f97] bg-blue-50"
+              >
+                <div class="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="online-service-yearly"
+                    name="add-on"
+                    value="Online service"
+                    class="mr-4 w-5 h-5 rounded-xl cursor-pointer"
+                    checked
+                  />
+                  <label
+                    for="online-service-yearly"
+                    class="flex-grow cursor-pointer"
+                  >
+                    <div>
+                      <p class="nameAdd_ons font-bold text-[#011f4f]">Online service</p>
+                      <p class="text-[#afb0b6]">Access to multiplayer games</p>
+                    </div>
+                  </label>
+                </div>
+                <div class="priceAdd_ons text-[#736eb4] text-base font-medium">+$100/yr</div>
+              </div>
+
+              <div
+                class="box_add-ons flex items-center justify-between border-2 p-4 rounded-md"
+              >
+                <div class="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="larger-storage-yearly"
+                    name="add-on"
+                    value="Larger storage"
+                    class="mr-4 w-5 h-5 rounded-xl cursor-pointer"
+                  />
+                  <label
+                    for="larger-storage-yearly"
+                    class="flex-grow cursor-pointer"
+                  >
+                    <div>
+                      <p class="nameAdd_ons font-bold text-[#011f4f]">Larger storage</p>
+                      <p class="text-[#afb0b6]">Extra 1TB of cloud save</p>
+                    </div>
+                  </label>
+                </div>
+                <div class=" priceAdd_ons text-[#736eb4] text-base font-medium">+$120/yr</div>
+              </div>
+
+              <div
+                class="box_add-ons flex items-center justify-between border-2 p-4 rounded-md"
+              >
+                <div class="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="customizable-profile-yearly"
+                    name="add-on"
+                    value="Customizable profile"
+                    class="mr-4 w-5 h-5 rounded-xl cursor-pointer"
+                  />
+                  <label
+                    for="customizable-profile-yearly"
+                    class="flex-grow cursor-pointer"
+                  >
+                    <div>
+                      <p class="nameAdd_ons font-bold text-[#011f4f]">
+                        Customizable profile
+                      </p>
+                      <p class="text-[#afb0b6]">Custom theme on your profile</p>
+                    </div>
+                  </label>
+                </div>
+                <div class="priceAdd_ons text-[#736eb4] text-base font-medium">+$140/yr</div>
+              </div>
+            </div>
+
+            <div class="flex justify-between pt-12">
+              <button
+                type="button"
+                class="text-gray-400 rounded-md py-2 hover:text-gray-700 hover:font-medium transition ease-in-out delay-50 px-4"
+                data-before
+              >
+                Go Back
+              </button>
+              <button
+                id="button"
+                type="button"
+                class="bg-[#144b8d] hover:bg-[#054aa4] text-white rounded-md py-2 px-4"
+                data-next
+              >
+                Next Step
+              </button>
+            </div>
+          </div>
+          <!-- Step 4 -->
+          <div data-step="4" id="step-4" class="step-content step_4 ">
+            <div class="">
+              <h2 class="text-3xl font-bold mb-2 text-[#011f4f]">
+                Finishing up
+              </h2>
+              <p class="mb-8 text-[#afb0b6]">
+                Double-check everything looks OK before confirming.
+              </p>
+
+              <!-- monthly box -->
+              <div class="totla_month rounded-lg mb-6">
+                <!-- mian  1 -->
+                <div class="bg-[#f8f9fe] p-6 rounded-md">
+                  <!-- price 1  -->
+                  <div class="flex justify-between items-center mb-6">
+                    <div class="">
+                      <p
+                        class="nameYourcheckM text-lg font-semibold text-[#102851]"
+                      >
+                        Arcade (Monthly)
+                      </p>
+                      <a href="#" class="text-sm text-[#b8b8c4] underline"
+                        >Change</a
+                      >
+                    </div>
+                    <div class="price">
+                      <span
+                        class="priceYourcheck text-xl font-bold text-[#132e4d]"
+                      >
+                        $9/mo
+                      </span>
+                    </div>
+                  </div>
+
+                  <hr class="border-t border-gray-300 mb-4" />
+                  <!-- price 2 -->
+                  <div id="monthly-add-ons" class="space-y-2">
+                    <!-- Dynamically added content will go here -->
+                  </div>
+                  
+                </div>
+                <!-- total  -->
+                <div class="flex justify-between items-center p-6">
+                  <span class="text-[#929396]">Total (per month)</span>
+                  <span id="total-price-monthly" class="font-bold text-2xl text-[#3a2fd3]">+$ <span class="total_price_monthly">0.00</span> /mo</span>
+                </div>
+              </div>
+
+
+
+
+              <!-- yearly Box -->
+              <div class="totla_year rounded-lg mb-6 hidden">
+                <!-- price 1 -->
+                <div class="bg-[#f8f9fe] p-6 rounded-md">
+                  <div class="flex justify-between items-center mb-6">
+                    <div class="">
+                      <p
+                        class="nameYourcheckY text-lg font-semibold text-[#102851]"
+                      >
+                        Arcade (Yearly)
+                      </p>
+                      <a href="#" class="text-sm text-[#b8b8c4] underline"
+                        >Change</a
+                      >
+                    </div>
+                    <div class="">
+                      <span
+                        class="priceYourcheck text-xl font-bold text-[#132e4d]"
+                        >$90/yr</span
+                      >
+                    </div>
+                  </div>
+
+                  <hr class="border-t border-gray-300 mb-4" />
+                  <!-- price 2 -->
+                  <div id="yearly-add-ons" class="space-y-2">
+                    
+                  </div>
+                </div>
+                <!-- total -->
+                <div class="flex justify-between items-center p-6">
+                  <span class="text-[#929396]">Total (per Yearly)</span>
+                  <span id="total-price-yearly" class="font-bold text-2xl text-[#3a2fd3]">+$ <span class="total_price_yearly">0.00</span> /yr</span>
+                </div>
+              </div>
+
+              <div class="flex justify-between items-center pt-12">
+                <button
+                  type="button"
+                  class="text-gray-400 rounded-md py-2 hover:text-gray-700 hover:font-medium transition ease-in-out delay-50 px-4"
+                  data-before
+                >
+                  Go Back
+                </button>
+                <button
+                  id="confirmBtn"
+                  type="button"
+                  class="bg-green-500 hover:bg-green-600 text-white rounded-md py-2 px-4"
+                >
+                  Confirm
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- thank you! -->
+          <div
+            data-step="4"
+            id="thank_you_page"
+            class="flex items-center justify-center hidden h-[75vh]"
+          >
+            <div class="text-center">
+              <img
+                src="/assets/images/icon-thank-you.svg"
+                class="mx-auto"
+                alt="Thank You Icon"
+              />
+              <h2 class="text-[#193661] font-bold text-4xl mt-6">Thank you!</h2>
+              <p class="text-[#a9aaad] mt-2">
+                Thanks for confirming your subscription! We hope you have fun
+                using our platform. If you ever need support, please feel free
+                to email us at support@loremgaming.com.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="/app.js"></script>
+</html>
